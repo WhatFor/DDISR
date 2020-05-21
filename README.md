@@ -7,7 +7,7 @@ A Dependency Injection extension library that enables hot-swapping injectable se
 
 Load-balancing can be achieved with:
 
-```
+```cs
 services
     .AddScopedHotSwapService<IStringService>()
         .AddImplementation<ReverseStringService>()
@@ -20,6 +20,7 @@ Where each service will be called in turn, spreading the load across different s
 
 ### Auto Failure Resilience
 
+```cs
 services
     .AddScopedHotSwapService<IStringService>()
         .AddImplementation<ReverseStringService>()
@@ -30,6 +31,7 @@ services
                 o.ErrorCount = 100;
                 o.ErrorWindow = TimeSpan.FromMinutes(5);
             });
+```
             
 Auto Failover can be used to swap to a new service when the first begins to fail.
 
@@ -37,7 +39,7 @@ For example, in the above scenario, when `ReverseStringService` starts to throw 
 
 To publish the failure events, you will need to consume the `IFailoverMonitor<T>` service, like so:
 
-```
+```cs
 public class ReverseStringService : IStringService
 {
     private readonly IFailoverMonitor<IStringService> failMon;
