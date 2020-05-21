@@ -1,6 +1,6 @@
 namespace Awsm.HotSwap
 {
-    internal enum ScopeLevel
+    public enum ScopeLevel
     {
         Singleton,
         Transient,

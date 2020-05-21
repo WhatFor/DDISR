@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -16,9 +17,30 @@ namespace Awsm.HotSwap.Test
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScopedHotSwapService<IStringService>()
-                .AddImplementation<ReverseStringService>(true)
-                .AddImplementation<UppercaseStringService>();
+            services
+                .AddScopedHotSwapService<IStringService>()
+                .AddImplementation<ReverseStringService>(o =>
+                {
+                    o.Id = 1;
+                    o.FailoverPriority = 0;
+                })
+                .AddImplementation<UppercaseStringService>(o =>
+                {
+                    o.Id = 2;
+                    o.ExcludeFromFailover = true;
+                    o.FailoverPriority = 1;
+                })
+                .AddImplementation<TruncatedStringService>(o =>
+                {
+                    o.Id = 3;
+                    o.FailoverPriority = 2;
+                })
+                .WithAutoRecovery(o =>
+                {
+                    o.ErrorCount = 3;
+                    o.ErrorWindow = TimeSpan.FromMinutes(1);
+                });
+                // .WithRoundRobinSelection();
             
             services.AddControllers();
         }
@@ -27,7 +49,7 @@ namespace Awsm.HotSwap.Test
         {
             app.UseHotSwapServices(o =>
             {
-                o.Endpoint = "services";
+                o.Endpoint = "/services";
             });
             
             app.UseDeveloperExceptionPage();
