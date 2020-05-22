@@ -49,5 +49,43 @@ namespace Awsm.HotSwap.Tests.Integration.ServiceResolution.Default
             Assert.AreEqual(typeof(UppercaseStringService), impl.GetType());
             Assert.AreEqual(impl.FormatString(InputString), UppercaseResult);
         }
+        
+        [Test]
+        public void WhenTwoTransientServicesAreRegisteredWithOneAsDefault_ShouldResolveTheDefaultService()
+        {
+            // Arrange
+            var serviceCol = new ServiceCollection();
+
+            // Act
+            serviceCol.AddTransientHotSwapService<IStringService>()
+                .AddImplementation<ReverseStringService>() 
+                .AddDefaultImplementation<UppercaseStringService>();
+
+            var services = serviceCol.BuildServiceProvider();
+            
+            // Assert
+            var impl = services.GetRequiredService<IStringService>();
+            Assert.AreEqual(typeof(UppercaseStringService), impl.GetType());
+            Assert.AreEqual(impl.FormatString(InputString), UppercaseResult);
+        }
+        
+        [Test]
+        public void WhenTwoSingletonServicesAreRegisteredWithOneAsDefault_ShouldResolveTheDefaultService()
+        {
+            // Arrange
+            var serviceCol = new ServiceCollection();
+
+            // Act
+            serviceCol.AddSingletonHotSwapService<IStringService>()
+                .AddImplementation<ReverseStringService>() 
+                .AddDefaultImplementation<UppercaseStringService>();
+
+            var services = serviceCol.BuildServiceProvider();
+            
+            // Assert
+            var impl = services.GetRequiredService<IStringService>();
+            Assert.AreEqual(typeof(UppercaseStringService), impl.GetType());
+            Assert.AreEqual(impl.FormatString(InputString), UppercaseResult);
+        }
     }
 }
