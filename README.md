@@ -2,6 +2,29 @@
 
 A Dependency Injection extension library that enables hot-swapping injectable services.
 
+### Levels
+
+Services can be registered at any DI level, i.e. `Scoped`, `Transient` or `Singleton`.
+
+```cs
+// Scoped
+services
+    .AddScopedHotSwapService<IStringService>()
+        .AddImplementation<ReverseStringService>()
+        .AddImplementation<UppercaseStringService>();
+
+// Transient
+services
+    .AddTransientHotSwapService<IStringService>()
+        .AddImplementation<ReverseStringService>()
+        .AddImplementation<UppercaseStringService>();
+
+// Singleton
+services
+    .AddSingletonHotSwapService<IStringService>()
+        .AddImplementation<ReverseStringService>()
+        .AddImplementation<UppercaseStringService>();
+```
 
 ### Round-Robin
 
