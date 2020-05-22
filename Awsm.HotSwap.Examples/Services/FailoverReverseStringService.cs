@@ -3,11 +3,11 @@ using System.Linq;
 
 namespace Awsm.HotSwap.Test
 {
-    public class ReverseStringService : IStringService
+    public class FailoverReverseStringService : IStringService
     {
         private readonly IFailoverMonitor<IStringService> failMon;
 
-        public ReverseStringService(IFailoverMonitor<IStringService> failMon)
+        public FailoverReverseStringService(IFailoverMonitor<IStringService> failMon)
         {
             this.failMon = failMon;
         }

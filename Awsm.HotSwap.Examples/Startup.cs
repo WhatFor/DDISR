@@ -35,12 +35,12 @@ namespace Awsm.HotSwap.Test
                     o.Id = 3;
                     o.FailoverPriority = 2;
                 })
-                .WithAutoRecovery(o =>
-                {
-                    o.ErrorCount = 3;
-                    o.ErrorWindow = TimeSpan.FromMinutes(1);
-                });
-                // .WithRoundRobinSelection();
+                // .WithAutoRecovery(o =>
+                // {
+                //     o.ErrorCount = 3;
+                //     o.ErrorWindow = TimeSpan.FromMinutes(1);
+                // });
+                .WithRoundRobinSelection();
             
             services.AddControllers();
         }

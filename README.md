@@ -65,4 +65,4 @@ public class ReverseStringService : IStringService
 }
 ```
 
-See the `Test` project for a full example.
+See the `Examples` project for a full example, or the `Tests` project for some registration examples.

@@ -1,8 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Awsm.HotSwap.Test", "Awsm.HotSwap.Test\Awsm.HotSwap.Test.csproj", "{65AFBED2-5100-40C3-9678-35A38080F7C0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Awsm.HotSwap.Examples", "Awsm.HotSwap.Examples\Awsm.HotSwap.Examples.csproj", "{65AFBED2-5100-40C3-9678-35A38080F7C0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Awsm.HotSwap", "Awsm.HotSwap\Awsm.HotSwap.csproj", "{53CFAEBE-0AA8-4C68-B44E-24056766B5AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Awsm.HotSwap.Tests", "Awsm.HotSwap.Tests\Awsm.HotSwap.Tests.csproj", "{96DB521C-8D66-4E6C-9517-435376215552}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +20,9 @@ Global
 		{53CFAEBE-0AA8-4C68-B44E-24056766B5AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53CFAEBE-0AA8-4C68-B44E-24056766B5AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53CFAEBE-0AA8-4C68-B44E-24056766B5AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96DB521C-8D66-4E6C-9517-435376215552}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96DB521C-8D66-4E6C-9517-435376215552}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96DB521C-8D66-4E6C-9517-435376215552}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96DB521C-8D66-4E6C-9517-435376215552}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
