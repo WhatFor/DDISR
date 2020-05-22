@@ -56,7 +56,7 @@ services
             });
 ```
             
-Auto Failover can be used to swap to a new service when the first begins to fail.
+Auto Failover can be used to swap to a new service when the current begins to fail.
 
 For example, in the above scenario, when `ReverseStringService` starts to throw errors and hits over 100 in a 5 minute window, `UppercaseStringService` will be used from there on.
 
@@ -65,6 +65,7 @@ To publish the failure events, you will need to consume the `IFailoverMonitor<T>
 ```cs
 public class ReverseStringService : IStringService
 {
+    // IFailoverMonitor<TInterface> where TInterface is your interface
     private readonly IFailoverMonitor<IStringService> failMon;
 
     public ReverseStringService(IFailoverMonitor<IStringService> failMon)
@@ -80,6 +81,9 @@ public class ReverseStringService : IStringService
         }
         catch
         {
+            // RecordFailure<TImpl> where TImpl is the implementation to throw the error
+            // TImpl will extend from the above TInterface,
+            // and align with the configuration from Startup.cs
             failMon.RecordFailure<ReverseStringService>();
         }
 
@@ -87,5 +91,31 @@ public class ReverseStringService : IStringService
     }
 }
 ```
+
+### Manual Management API [Currently WIP]
+
+In scenarios where manual intervention is needed, an API is available through middleware.
+
+This can be useful for binding the different services to an admin dashboard for example, where an admin user may wish to manually override the current service.
+
+Register the API like so:
+
+```cs
+app.UseHotSwapServices(o =>
+{
+    // Default: /api/hot-swap
+    o.Endpoint = "/my-services-endpoint";
+});
+```
+
+#### Service Summary
+
+Calling the `Endpoint` configured will return a summary of the services and their current state. [WIP]
+
+#### Manual Switching
+
+Passing an ID parameter to the service can allow you to switch services. The Summary will return unique GUID Ids for each service. For example, `/api/hot-swap/d131bc24-a7d6-430e-8def-1b22fce4cbf7`. [WIP]
+
+
 
 See the `Examples` project for a full example, or the `Tests` project for some registration examples.
